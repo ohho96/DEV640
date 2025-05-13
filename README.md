@@ -12,4 +12,4 @@ This course focuses on advanced web programming concepts and techniques.
 
 ## Repository Structure
 - Projects and assignments will be organized in their respective directories
-- Each project will include its own documentation and requirements 
+- Each project will include its own documentation and requirements
