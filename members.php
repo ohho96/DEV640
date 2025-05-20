@@ -22,34 +22,34 @@
     $add = sanitizeString($_GET['add']);
 
     $result = queryMysql("SELECT * FROM friends
-      WHERE user='$add' AND friend='$user'");
-    if (!$result->rowCount)
-      queryMysql("INSERT INTO friends VALUES ('$add', '$user')");
+      WHERE username='$add' AND friend='$user'");
+    if (!$result->rowCount())
+      queryMysql("INSERT INTO friends (username, friend) VALUES ('$add', '$user')");
   }
   elseif (isset($_GET['remove']))
   {
     $remove = sanitizeString($_GET['remove']);
     queryMysql("DELETE FROM friends
-      WHERE user='$remove' AND friend='$user'");
+      WHERE username='$remove' AND friend='$user'");
   }
 
-  $result = queryMysql("SELECT user FROM members ORDER BY user");
+  $result = queryMysql("SELECT username FROM members ORDER BY username");
   $num    = $result->rowCount();
 
   while ($row = $result->fetch())
   {
-    if ($row['user'] == $user) continue;
+    if ($row['username'] == $user) continue;
     
     echo "<li><a data-transition='slide' href='members.php?view=" .
-      $row['user'] . "&$randstr'>" . $row['user'] . "</a>";
+      $row['username'] . "&$randstr'>" . $row['username'] . "</a>";
     $follow = "follow";
 
     $result1 = queryMysql("SELECT * FROM friends WHERE
-      user='" . $row['user'] . "' AND friend='$user'");
+      username='" . $row['username'] . "' AND friend='$user'");
     $t1      = $result1->rowCount();
     
     $result1 = queryMysql("SELECT * FROM friends WHERE
-      user='$user' AND friend='" . $row['user'] . "'");
+      username='$user' AND friend='" . $row['username'] . "'");
     $t2      = $result1->rowCount();
 
     if (($t1 + $t2) > 1) echo " &harr; is a mutual friend";
@@ -58,9 +58,9 @@
                          $follow = "recip"; }
     
     if (!$t1) echo " [<a data-transition='slide'
-      href='members.php?add=" . $row['user'] . "&r=$randstr'>$follow</a>]";
+      href='members.php?add=" . $row['username'] . "&r=$randstr'>$follow</a>]";
     else      echo " [<a data-transition='slide'
-      href='members.php?remove=" . $row['user'] . "&r=$randstr'>drop</a>]";
+      href='members.php?remove=" . $row['username'] . "&r=$randstr'>drop</a>]";
   }
 
 ?>

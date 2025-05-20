@@ -16,12 +16,17 @@ try {
     // Select the database
     $pdo->exec("USE fantastic6");
     
+    // Drop existing tables if they exist
+    $pdo->exec("DROP TABLE IF EXISTS members");
+    $pdo->exec("DROP TABLE IF EXISTS messages");
+    $pdo->exec("DROP TABLE IF EXISTS friends");
+    $pdo->exec("DROP TABLE IF EXISTS profiles");
+    
     // Create tables
     $pdo->exec("CREATE TABLE IF NOT EXISTS members (
         id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(16) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL UNIQUE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )");
     

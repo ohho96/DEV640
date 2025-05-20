@@ -11,8 +11,8 @@
       $error = 'Not all fields were entered';
     else
     {
-      $result = queryMySQL("SELECT user,pass FROM members
-        WHERE user='$user' AND pass='$pass'");
+      $result = queryMySQL("SELECT username,password FROM members
+        WHERE username='$user' AND password='$pass'");
 
       if ($result->rowCount() == 0)
       {

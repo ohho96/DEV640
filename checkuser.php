@@ -4,7 +4,7 @@
   if (isset($_POST['user']))
   {
     $user   = sanitizeString($_POST['user']);
-    $result = queryMysql("SELECT * FROM members WHERE user='$user'");
+    $result = queryMysql("SELECT * FROM members WHERE username='$user'");
 
     if ($result->rowCount())
       echo  "<span class='taken'>&nbsp;&#x2718; " .

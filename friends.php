@@ -19,13 +19,13 @@
     $name3 = "$view is";
   }
 
-  // Uncomment this line if you wish the user’s profile to show here
+  // Uncomment this line if you wish the user's profile to show here
   // showProfile($view);
 
   $followers = array();
   $following = array();
 
-  $result = queryMysql("SELECT * FROM friends WHERE user='$view'");
+  $result = queryMysql("SELECT * FROM friends WHERE username='$view'");
 
   $j = 0;
   
@@ -40,7 +40,7 @@
 
   while ($row = $result->fetch())
   {
-    $following[$j++] = $row['user'];
+    $following[$j++] = $row['username'];
   }
 
   $mutual    = array_intersect($followers, $following);

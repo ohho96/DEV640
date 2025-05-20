@@ -76,7 +76,7 @@
     if (file_exists("$user.jpg"))
       echo "<img src='$user.jpg' style='float:left;'>";
 
-    $result = $pdo->query("SELECT * FROM profiles WHERE user='$user'");
+    $result = $pdo->query("SELECT * FROM profiles WHERE username='$user'");
 
     while ($row = $result->fetch())
     {

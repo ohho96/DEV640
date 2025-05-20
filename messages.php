@@ -29,7 +29,6 @@
     }
 
     echo "<h3>$name1 Messages</h3>";
-    showProfile($view);
     
     echo <<<_END
       <form method='post' action='messages.php?view=$view&r=$randstr'>

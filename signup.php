@@ -21,6 +21,19 @@ echo <<<_END
         }
       )
     }
+
+    function togglePassword() {
+      var passwordInput = document.getElementById('password');
+      var eyeIcon = document.getElementById('eye-icon');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.innerHTML = '👁️';
+      } else {
+        passwordInput.type = 'password';
+        eyeIcon.innerHTML = '👁️‍🗨️';
+      }
+    }
   </script>  
 _END;
 
@@ -36,13 +49,13 @@ _END;
       $error = 'Not all fields were entered<br><br>';
     else
     {
-      $result = queryMysql("SELECT * FROM members WHERE user='$user'");
+      $result = queryMysql("SELECT * FROM members WHERE username='$user'");
 
       if ($result->rowCount())
         $error = 'That username already exists<br><br>';
       else
       {
-        queryMysql("INSERT INTO members VALUES('$user', '$pass')");
+        queryMysql("INSERT INTO members (username, password) VALUES('$user', '$pass')");
         die('<h4>Account created</h4>Please Log in.</div></body></html>');
       }
     }
@@ -60,9 +73,10 @@ echo <<<_END
           onBlur='checkUser(this)'>
         <label></label><div id='used'>&nbsp;</div>
       </div>
-      <div data-role='fieldcontain'>
+      <div data-role='fieldcontain' style="position: relative;">
         <label>Password</label>
-        <input type='text' maxlength='16' name='pass' value='$pass'>
+        <input type='password' maxlength='16' name='pass' value='$pass' id='password'>
+        <span id='eye-icon' onclick='togglePassword()' style='position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 20px;'>👁️‍🗨️</span>
       </div>
       <div data-role='fieldcontain'>
         <label></label>
