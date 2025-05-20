@@ -31,12 +31,12 @@ _INIT;
   else $loggedin = FALSE;
 
 echo <<<_MAIN
-    <title>Robin's Nest: $userstr</title>
+    <title>Fantastic 6: $userstr</title>
   </head>
   <body>
     <div data-role='page'>
       <div data-role='header'>
-        <div id='logo' class='center'>R<img id='robin' src='robin.gif'>bin's Nest</div>
+        <div id='logo' class='center'>Fantastic <img src='/images/fan6.png' alt='6' style='vertical-align: middle; height: 97px;'></div>
         <div class='username'>$userstr</div>
       </div>
       <div data-role='content'>

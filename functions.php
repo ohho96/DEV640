@@ -3,7 +3,7 @@
   set_time_limit(60); // Increase to 60 seconds
   
   $host = '127.0.0.1:3306';    // Local MySQL
-  $data = 'robinsnest';   // Database name
+  $data = 'fantastic6';   // Database name
   $user = 'root';         // MySQL username
   $pass = '<Strong>012';             // MySQL password (empty by default)
   $chrs = 'utf8mb4';

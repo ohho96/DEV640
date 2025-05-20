@@ -2,7 +2,7 @@
   session_start();
   require_once 'header.php';
 
-  echo "<div class='center'>Welcome to Robin's Nest,";
+  echo "<div class='center'>Welcome to Fantastic 6,";
 
   if ($loggedin) echo " $user, you are logged in";
   else           echo ' please sign up or log in';
@@ -11,8 +11,7 @@
       </div><br>
     </div>
     <div data-role="footer">
-      <h4>Web App from <i><a href='https://github.com/RobinNixon/lpmj6'
-      target='_blank'>Learning PHP MySQL & JavaScript</a></i></h4>
+      <h4>This website is a work in progress and belong to the Fantastic 6 under Westcliff University</h4>
     </div>
   </body>
 </html>

@@ -6,15 +6,15 @@ error_reporting(E_ALL);
 
 try {
     // Connect to MySQL without specifying a database
-    $pdo = new PDO("mysql:host=localhost", "root", "");
+    $pdo = new PDO("mysql:host=localhost", "root", "<Strong>012");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Create the database
-    $pdo->exec("CREATE DATABASE IF NOT EXISTS robinsnest");
-    echo "Database 'robinsnest' created successfully!<br>";
+    $pdo->exec("CREATE DATABASE IF NOT EXISTS fantastic6");
+    echo "Database 'fantastic6' created successfully!<br>";
     
     // Select the database
-    $pdo->exec("USE robinsnest");
+    $pdo->exec("USE fantastic6");
     
     // Create tables
     $pdo->exec("CREATE TABLE IF NOT EXISTS members (
