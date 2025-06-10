@@ -21,11 +21,8 @@
       else
       {
         $_SESSION['user'] = $user;
-        $_SESSION['pass'] = $pass;
-        die("<div class='center'>You are now logged in. Please
-             <a data-transition='slide'
-               href='members.php?view=$user&r=$randstr'>click here</a>
-               to continue.</div></div></body></html>");
+        header("Location: members.php?view=$user&r=$randstr");
+        exit();
       }
     }
   }

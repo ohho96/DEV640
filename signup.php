@@ -56,7 +56,20 @@ _END;
       else
       {
         queryMysql("INSERT INTO members (username, password) VALUES('$user', '$pass')");
-        die('<h4>Account created</h4>Please Log in.</div></body></html>');
+        echo <<<_END
+        <div class='center'>
+          <h2>Account Successfully Created!</h2>
+          <p>You can now log in with your new account.</p>
+          <a data-role='button' data-transition='slide' href='index.php?r=$randstr'>Go to Login</a>
+        </div>
+        <script>
+          setTimeout(function() {
+            window.location.replace('index.php?r=$randstr');
+          }, 3000);
+        </script>
+        </div></body></html>
+_END;
+        exit();
       }
     }
   }
