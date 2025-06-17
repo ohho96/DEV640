@@ -14,8 +14,7 @@
     {
       $pm   = substr(sanitizeString($_POST['pm']),0,1);
       $time = time();
-      queryMysql("INSERT INTO messages VALUES(NULL, '$user',
-        '$view', '$pm', $time, '$text')");
+      queryMysql("INSERT INTO messages VALUES(NULL, '$user', '$view', '$pm', $time, '$text')");
     }
   }
 
@@ -52,38 +51,50 @@ _END;
       queryMysql("DELETE FROM messages WHERE id='$erase' AND recip='$user'");
     }
     
-    $query  = "SELECT * FROM messages WHERE recip='$view' ORDER BY time DESC";
+    // First get all public messages
+    $query = "SELECT * FROM messages WHERE pm=0 ORDER BY time DESC";
     $result = queryMysql($query);
-    $num    = $result->rowCount();
+    $num = $result->rowCount();
 
-    while ($row = $result->fetch())
+    if ($num > 0)
     {
-      if ($row['pm'] == 0 || $row['auth'] == $user || $row['recip'] == $user)
+      while ($row = $result->fetch())
       {
-        echo date('M jS \'y g:ia:', $row['time']);
-        echo " <a href='messages.php?view=" . $row['auth'] .
-             "&r=$randstr'>" . $row['auth']. "</a> ";
-
+        echo date('M jS \'y g:ia:', $row['time']) . " ";
+        echo "<a href='messages.php?view=" . $row['auth'] . "&r=$randstr'>" . $row['auth']. "</a> ";
         if ($row['pm'] == 0)
-          echo "wrote: &quot;" . $row['message'] . "&quot; ";
-        else
-          echo "whispered: <span class='whisper'>&quot;" .
-            $row['message']. "&quot;</span> ";
-
+          echo "wrote: &quot;" . html_entity_decode($row['message'], ENT_QUOTES | ENT_HTML5, 'UTF-8') . "&quot; ";
         if ($row['recip'] == $user)
-          echo "[<a href='messages.php?view=$view" .
-               "&erase=" . $row['id'] . "&r=$randstr'>erase</a>]";
-
+          echo "[<a href='messages.php?view=$view&erase=" . $row['id'] . "&r=$randstr'>erase</a>]";
         echo "<br>";
       }
     }
+
+    // Then get private messages where user is involved
+    $query = "SELECT * FROM messages WHERE pm=1 AND (auth='$user' OR recip='$user') ORDER BY time DESC";
+    $result = queryMysql($query);
+    $num = $result->rowCount();
+
+    if ($num > 0)
+    {
+      while ($row = $result->fetch())
+      {
+        echo date('M jS \'y g:ia:', $row['time']) . " ";
+        echo "<a href='messages.php?view=" . $row['auth'] . "&r=$randstr'>" . $row['auth']. "</a> ";
+        echo "whispered: <span class='whisper'>&quot;" . html_entity_decode($row['message'], ENT_QUOTES | ENT_HTML5, 'UTF-8'). "&quot;</span> ";
+        if ($row['recip'] == $user)
+          echo "[<a href='messages.php?view=$view&erase=" . $row['id'] . "&r=$randstr'>erase</a>]";
+        echo "<br>";
+      }
+    }
+
+    if ($num == 0)
+    {
+      echo "<br><span class='info'>No messages yet</span><br><br>";
+    }
   }
 
-  if (!$num)
-    echo "<br><span class='info'>No messages yet</span><br><br>";
-
-  echo "<br><a data-role='button'
-        href='messages.php?view=$view&r=$randstr'>Refresh messages</a>";
+  echo "<br><a data-role='button' href='messages.php?view=$view&r=$randstr'>Refresh messages</a>";
 ?>
 
     </div><br>

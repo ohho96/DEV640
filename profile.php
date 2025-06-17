@@ -66,12 +66,12 @@ _END;
 
       if ($w > $h && $max < $w)
       {
-        $th = $max / $w * $h;
+        $th = (int)($max / $w * $h);
         $tw = $max;
       }
       elseif ($h > $w && $max < $h)
       {
-        $tw = $max / $h * $w;
+        $tw = (int)($max / $h * $w);
         $th = $max;
       }
       elseif ($max < $w)
